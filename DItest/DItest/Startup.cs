@@ -1,4 +1,5 @@
 using DItest.Data;
+using DItest.Managers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,9 +33,20 @@ namespace DItest
 					Configuration.GetConnectionString("DefaultConnection")));
 			services.AddDatabaseDeveloperPageExceptionFilter();
 
-			services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+			services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 			services.AddControllersWithViews();
+
+			services.AddTransient<IAuthManager, AuthManager>();
+
+			services.AddScoped<DatabaseSeeder>();
+			services.Configure<SeedData>(x =>
+			{
+				x.AdminRoleName = "GlavCocksucker";
+				x.AdministratorUserName = "Loshara";
+				x.AdministratorEmail = "smalpenis@mailru.ru";
+				x.AdministratorPassword = "strongpassword1234@@";
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
