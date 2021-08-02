@@ -1,5 +1,6 @@
 using DItest.Data;
 using DItest.Managers;
+using DItest.MwExample;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -47,6 +48,12 @@ namespace DItest
 				x.AdministratorEmail = "smalpenis@mailru.ru";
 				x.AdministratorPassword = "strongpassword1234@@";
 			});
+
+			services.AddRazorPages();
+
+
+			services.AddTransient<IGovno, Govnoservice>();
+			services.AddSingleton("I AM SINGLETON");
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +77,9 @@ namespace DItest
 
 			app.UseAuthentication();
 			app.UseAuthorization();
+
+
+			app.UseMiddleware<MyMiddleware>();//порядок добавления играет роль
 
 			app.UseEndpoints(endpoints =>
 			{

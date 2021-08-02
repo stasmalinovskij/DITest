@@ -21,7 +21,8 @@ namespace DItest
 				var seeder = services.GetRequiredService<DatabaseSeeder>();
 				try
 				{
-					await seeder.SeedAsync();
+					//отрубил так нет у меня базы
+					//await seeder.SeedAsync();
 				}
 				catch (Exception ex)
 				{
