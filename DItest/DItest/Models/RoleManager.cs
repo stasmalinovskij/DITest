@@ -4,38 +4,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace DItest.Managers
 {
-	public static class RoleManager
+	public class RoleManager
 	{
+		private RequestDelegate _next;
+		private ApplicationDbContext _dbContext;
 
-		private static DB _DB;
-		private static DatabaseSeeder _databaseSeeder;
-
-		public static void Init(DB dB, DatabaseSeeder databaseSeeder) // принимаем DatabaseSeeder databaseSeede в статическом калссе
+		//private DatabaseSeeder databaseSeeder;
+		
+		public RoleManager(RequestDelegate next, ApplicationDbContext applicationDbContext)
 		{
-			//Che
-			// LogManager._NLog.Debug("UserLocalesManager Init");
-			_databaseSeeder = databaseSeeder; // передаем databaseSeeder в статическую переменную и теперь по идее думать над цыклом жизни DatabaseSeeder нам не надо
-			_DB = dB;
+			_next = next;
+			_dbContext = applicationDbContext;
 		}
 
-
-		public static async Task MyClass()
+		public async Task InvokeAsync(HttpContext context) 
 		{
-			await _databaseSeeder.SeedAsync(); // юзаем в свое удовольствие	}
+			await this._next(context);
 		}
-
-
-
-		//public static bool CheckIfAdminExists()
-		//{
-
-		//	//_databaseSeeder.
-		//	return true;
-		//}
-
 
 	}
 }

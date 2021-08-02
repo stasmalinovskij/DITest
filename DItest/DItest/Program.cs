@@ -22,8 +22,6 @@ namespace DItest
 				var services = scope.ServiceProvider;
 				var seeder = services.GetRequiredService<DatabaseSeeder>();
 
-				Managers.RoleManager.Init(db, seeder); //передаем DatabaseSeeder seeder как параметр что бы потом использовать в middleware
-
 				try
 				{
 					await seeder.SeedAsync();

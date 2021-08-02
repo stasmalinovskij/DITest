@@ -12,13 +12,13 @@ namespace DItest
     {
         private ApplicationDbContext context;
         private SeedData options;
-        private readonly UserManager<CustomIdentityUser> userManager;
-        private readonly RoleManager<CustomIdentityRole> roleManager;
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public DatabaseSeeder(
             ApplicationDbContext context,
-            UserManager<CustomIdentityUser> userManager,
-            RoleManager<CustomIdentityRole> roleManager,
+            UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager,
             IOptions<SeedData> options)
         {
             this.context = context;
@@ -37,7 +37,7 @@ namespace DItest
             var adminRole = await roleManager.FindByNameAsync(options.AdminRoleName);
             if (adminRole == null)
             {
-                adminRole = new CustomIdentityRole(options.AdminRoleName);
+                adminRole = new IdentityRole(options.AdminRoleName);
                 var result = await roleManager.CreateAsync(adminRole);
                 if (!result.Succeeded)
                 {
@@ -49,7 +49,7 @@ namespace DItest
 
             if (adminUserToRole == null)
             {
-                var adminUser = new CustomIdentityUser
+                var adminUser = new IdentityUser
                 {
                     UserName = options.AdministratorUserName,
                     Email = options.AdministratorEmail,

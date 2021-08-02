@@ -32,12 +32,15 @@ namespace DItest
 					Configuration.GetConnectionString("DefaultConnection")));
 			services.AddDatabaseDeveloperPageExceptionFilter();
 
-			services.AddIdentity<CustomIdentityUser, CustomIdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+			services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 			services.AddControllersWithViews();
 
 
 			services.AddScoped<DatabaseSeeder>();
+
+			services.AddScoped<Managers.RoleManager>();
+
 			services.Configure<SeedData>(x =>
 			{
 				x.AdminRoleName = "GlavCocksucker";
@@ -78,6 +81,10 @@ namespace DItest
 					pattern: "{controller=Home}/{action=Index}/{id?}");
 				endpoints.MapRazorPages();
 			});
+
+			app.UseLogUrl();
 		}
+
+
 	}
 }
