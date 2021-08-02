@@ -1,5 +1,4 @@
 using DItest.Data;
-using DItest.Managers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,11 +32,10 @@ namespace DItest
 					Configuration.GetConnectionString("DefaultConnection")));
 			services.AddDatabaseDeveloperPageExceptionFilter();
 
-			services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+			services.AddIdentity<CustomIdentityUser, CustomIdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 			services.AddControllersWithViews();
 
-			services.AddTransient<IAuthManager, AuthManager>();
 
 			services.AddScoped<DatabaseSeeder>();
 			services.Configure<SeedData>(x =>
@@ -45,8 +43,10 @@ namespace DItest
 				x.AdminRoleName = "GlavCocksucker";
 				x.AdministratorUserName = "Loshara";
 				x.AdministratorEmail = "smalpenis@mailru.ru";
-				x.AdministratorPassword = "strongpassword1234@@";
+				x.AdministratorPassword = "Strongpassword1234@@";
 			});
+
+			services.AddRazorPages();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

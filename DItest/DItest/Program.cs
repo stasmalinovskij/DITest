@@ -1,3 +1,4 @@
+﻿using DItest.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,11 +15,15 @@ namespace DItest
 	{
 		public static async Task Main(string[] args)
 		{
+			var db = new DB();
 			var host = CreateHostBuilder(args).Build();
 			using (var scope = host.Services.CreateScope())
 			{
 				var services = scope.ServiceProvider;
 				var seeder = services.GetRequiredService<DatabaseSeeder>();
+
+				Managers.RoleManager.Init(db, seeder); //передаем DatabaseSeeder seeder как параметр что бы потом использовать в middleware
+
 				try
 				{
 					await seeder.SeedAsync();
