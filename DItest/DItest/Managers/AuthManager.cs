@@ -1,40 +1,29 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace DItest.Managers
 {
-	public class AuthManager
-	{
-        public interface IAuthManager
+    public interface IAuthManager
+    {
+        Task<IdentityUser> FindByIdAsync(string id); // Get user id:
+    }
+
+    public class AuthManager : IAuthManager
+    {
+        private UserManager<IdentityUser> _iauthManager;
+
+        public AuthManager(UserManager<IdentityUser> iauthManager)
         {
-            Task<Microsoft.AspNetCore.Identity.IdentityUser> FindByIdAsync(string id); // Get user id:
+            this._iauthManager = iauthManager; //тут мы получаем налл
         }
 
-        //public class testdI : IAuthManager
-        //{
-        //	// здесь должна быть импементация FindByIdAsync(string id) из UserManager<Data.CustomIdentityUser> но впихнуть не впихуемое не получается
-        //	public Task<CustomIdentityUser> FindByIdAsync(string id)
-        //	{
-        //		throw new NotImplementedException();
-        //	}
-        //}
-
-        public class AuthManager : IAuthManager
+        public Task<IdentityUser> FindByIdAsync(string id)
         {
-            private IAuthManager _iauthManager;
-
-            public AuthManager(IAuthManager iauthManager)
-            {
-                this._iauthManager = iauthManager; //тут мы получаем налл
-            }
-
-            public Task<Microsoft.AspNetCore.Identity.IdentityUser> FindByIdAsync(string id)
-            {
-                var result = _iauthManager.FindByIdAsync(id);
-                return result;
-            }
+            var result = _iauthManager.FindByIdAsync(id);
+            return result;
         }
     }
 }
