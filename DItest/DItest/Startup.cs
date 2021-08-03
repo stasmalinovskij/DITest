@@ -1,5 +1,5 @@
 ﻿using DItest.Data;
-using DItest.Managers;
+//using DItest.Managers;
 using DItest.MwExample;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,12 +34,12 @@ namespace DItest
 					Configuration.GetConnectionString("DefaultConnection")));
 			services.AddDatabaseDeveloperPageExceptionFilter();
 
-			services.AddIdentity<CustomIdentityUser, CustomIdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+			services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 			services.AddControllersWithViews();
 
 
-			services.AddScoped<DatabaseSeeder>();
+			//services.AddScoped<DatabaseSeeder>();
 			services.Configure<SeedData>(x =>
 			{
 				x.AdminRoleName = "GlavCocksucker";
