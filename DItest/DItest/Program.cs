@@ -26,7 +26,8 @@ namespace DItest
 
 				try
 				{
-					await seeder.SeedAsync();
+					//отрубил так нет у меня базы
+					//await seeder.SeedAsync();
 				}
 				catch (Exception ex)
 				{
