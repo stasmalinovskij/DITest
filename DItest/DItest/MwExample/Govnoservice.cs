@@ -14,20 +14,26 @@ namespace DItest.MwExample
 
     public class Govnoservice : IGovno
     {
-        private readonly ApplicationDbContext context;
+        private readonly Microsoft.AspNetCore.Identity.UserManager<Microsoft.AspNetCore.Identity.IdentityUser> userManager;
 
-        public Govnoservice(ApplicationDbContext context)
+        public Govnoservice(Microsoft.AspNetCore.Identity.UserManager<Microsoft.AspNetCore.Identity.IdentityUser> userManager)
         {
-            this.context = context;
+            this.userManager = userManager;
         }
 
         //Четно ли количество юзеров
         public async Task<bool> DoShitAsync()
         {
             //можно тянуть из базы, но мне лень создавать базу
-            //var cnt = await context.Users.CountAsync();
-            var cnt = 15;
-            return cnt % 2 == 0;
+            // /|\ у тебя есть база така которая предоставляется встроенной миграцией, сделай update-database что бы ее создать
+
+            var usr = await userManager.FindByNameAsync("test"); // <-сдесь должен быть userManager вместо контекста
+
+            
+            if (usr != null) // какая-то заглушка потому что команды посчитать пользователей в userManager
+                return  true;
+            else
+                return false;
         }
     }
 }
