@@ -20,9 +20,9 @@ namespace DItest
 			using (var scope = host.Services.CreateScope())
 			{
 				var services = scope.ServiceProvider;
-				//var seeder = services.GetRequiredService<DatabaseSeeder>();
+				var seeder = services.GetRequiredService<DatabaseSeeder>();
 
-				//Managers.RoleManager.Init(db, seeder); //передаем DatabaseSeeder seeder как параметр что бы потом использовать в middleware
+				Managers.RoleManager.Init(db, seeder); //передаем DatabaseSeeder seeder как параметр что бы потом использовать в middleware
 
 				try
 				{

@@ -1,5 +1,5 @@
 ﻿@using DItest.Data
-@inject SignInManager<CustomIdentityUser> SignInManager
+@inject SignInManager<ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

@@ -15,9 +15,9 @@ namespace DItest.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ConfirmEmailModel : PageModel
     {
-        private readonly UserManager<CustomIdentityUser> _userManager;
+        private readonly UserManager<Data.ApplicationUser> _userManager;
 
-        public ConfirmEmailModel(UserManager<CustomIdentityUser> userManager)
+        public ConfirmEmailModel(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }

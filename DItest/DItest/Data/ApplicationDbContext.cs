@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace DItest.Data
@@ -18,9 +19,9 @@ namespace DItest.Data
 		{
 			base.OnModelCreating(builder);
 
-			builder.Entity<CustomIdentityUserRole>(userRole =>
+			builder.Entity<ApplicationUserRole>(userRole =>
 			{
-				userRole.HasKey(ur => new { ur.UserId, ur.RoleId });
+				builder.Entity<IdentityUserRole<string>>().HasKey(x => new { x.UserId, x.RoleId });
 
 				userRole.HasOne(ur => ur.Role)
 					.WithMany(r => r.UserRoles)
@@ -35,24 +36,19 @@ namespace DItest.Data
 		}
 	}
 
-	public class CustomIdentityUser : IdentityUser
+	public class ApplicationUser : IdentityUser
 	{
-		public ICollection<CustomIdentityUserRole> UserRoles { get; set; }
+		public ICollection<ApplicationUserRole> UserRoles { get; set; }
 	}
 
-	public class CustomIdentityUserRole : IdentityUserRole<string>
+	public class ApplicationUserRole : IdentityUserRole<string>
 	{
-		public virtual CustomIdentityUser User { get; set; }
-
-		public virtual CustomIdentityRole Role { get; set; }
+		public virtual ApplicationUser User { get; set; }
+		public virtual ApplicationRole Role { get; set; }
 	}
 
-	public class CustomIdentityRole : IdentityRole
+	public class ApplicationRole : IdentityRole
 	{
-		//public CustomIdentityRole() { }
-
-		//public CustomIdentityRole(string test) { }
-
-		public ICollection<CustomIdentityUserRole> UserRoles { get; set; }
+		public ICollection<ApplicationUserRole> UserRoles { get; set; }
 	}
 }

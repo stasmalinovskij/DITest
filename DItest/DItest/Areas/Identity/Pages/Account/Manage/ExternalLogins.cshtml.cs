@@ -12,12 +12,12 @@ namespace DItest.Areas.Identity.Pages.Account.Manage
 {
     public class ExternalLoginsModel : PageModel
     {
-        private readonly UserManager<CustomIdentityUser> _userManager;
-        private readonly SignInManager<CustomIdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
         public ExternalLoginsModel(
-            UserManager<CustomIdentityUser> userManager,
-            SignInManager<CustomIdentityUser> signInManager)
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

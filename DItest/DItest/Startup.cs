@@ -34,12 +34,25 @@ namespace DItest
 					Configuration.GetConnectionString("DefaultConnection")));
 			services.AddDatabaseDeveloperPageExceptionFilter();
 
-			services.AddIdentity<CustomIdentityUser, CustomIdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-				.AddEntityFrameworkStores<ApplicationDbContext>();
+			services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+			{
+				options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZżŻźŹłŁóÓćĆśŚąĄęĘабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ0123456789~!@#$%^&*()_+|:<> ";
+				options.Password.RequiredLength = 1;
+				options.Password.RequireLowercase = false;
+				options.Password.RequireUppercase = false;
+				options.Password.RequireNonAlphanumeric = false;
+				options.Password.RequireDigit = false;
+				options.User.RequireUniqueEmail = true;
+
+				options.SignIn.RequireConfirmedAccount = true;
+			})
+			.AddEntityFrameworkStores<ApplicationDbContext>()
+			.AddDefaultTokenProviders();
+
 			services.AddControllersWithViews();
 
 
-			//services.AddScoped<DatabaseSeeder>();
+			services.AddScoped<DatabaseSeeder>();
 			services.Configure<SeedData>(x =>
 			{
 				x.AdminRoleName = "GlavCocksucker";
