@@ -34,7 +34,7 @@ namespace DItest
 					Configuration.GetConnectionString("DefaultConnection")));
 			services.AddDatabaseDeveloperPageExceptionFilter();
 
-			services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+			services.AddIdentity<CustomIdentityUser, CustomIdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 			services.AddControllersWithViews();
 
@@ -51,8 +51,8 @@ namespace DItest
 			services.AddRazorPages();
 
 
-			services.AddTransient<IGovno, Govnoservice>();
-			services.AddSingleton("I AM SINGLETON");
+			//services.AddTransient<IGovno, Govnoservice>();
+			//services.AddSingleton("I AM SINGLETON");
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,7 +78,7 @@ namespace DItest
 			app.UseAuthorization();
 
 
-			app.UseMiddleware<MyMiddleware>();//������� ���������� ������ ����
+			//app.UseMiddleware<MyMiddleware>();//������� ���������� ������ ����
 
 			app.UseEndpoints(endpoints =>
 			{

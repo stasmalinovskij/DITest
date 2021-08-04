@@ -1,4 +1,5 @@
 ﻿using System;
+using DItest.Data;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,13 +12,13 @@ namespace DItest.Areas.Identity.Pages.Account.Manage
 {
     public class ChangePasswordModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<CustomIdentityUser> _userManager;
+        private readonly SignInManager<CustomIdentityUser> _signInManager;
         private readonly ILogger<ChangePasswordModel> _logger;
 
         public ChangePasswordModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<CustomIdentityUser> userManager,
+            SignInManager<CustomIdentityUser> signInManager,
             ILogger<ChangePasswordModel> logger)
         {
             _userManager = userManager;

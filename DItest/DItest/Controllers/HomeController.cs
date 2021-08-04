@@ -20,7 +20,7 @@ namespace DItest.Controllers
 
 		public IActionResult Index()
 		{
-			var test = new MwExample.MyMiddleware.InvokeAsync(); // сдеась должен быть вызван милдварь
+			//var test = new MwExample.MyMiddleware.InvokeAsync(); // сдеась должен быть вызван милдварь
 			return View();
 		}
 
